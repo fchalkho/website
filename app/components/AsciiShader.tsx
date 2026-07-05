@@ -358,9 +358,11 @@ export default function AsciiShader({ config, svgScale = 1, theme = "dark", svgP
           const st = cfg.charSet as RampKey
           let cr: number, cg: number, cb: number
           if (st === "blocks") {
-            cr = (20 * br + 30 * wP) | 0
-            cg = (80 * br + 100 * wP) | 0
-            cb = (180 + 75 * br) | 0
+            // grayscale ramp: #35373B (low) -> #A3A6A8 (high)
+            const gt = Math.min(1, br * 0.85 + wP * 0.15)
+            cr = (53 + 110 * gt) | 0
+            cg = (55 + 111 * gt) | 0
+            cb = (59 + 109 * gt) | 0
           } else if (st === "code") {
             cr = (140 + 115 * br) | 0
             cg = (40 * br * wP) | 0
@@ -527,9 +529,11 @@ export default function AsciiShader({ config, svgScale = 1, theme = "dark", svgP
             g = (30 + 60 * brightness) | 0
             b = (100 + 80 * brightness) | 0
           } else {
-            r = (20 * brightness + 30 * wavePhase) | 0
-            g = (80 * brightness + 100 * wavePhase) | 0
-            b = (180 + 75 * brightness) | 0
+            // grayscale ramp: #35373B (low) -> #A3A6A8 (high)
+            const gt = Math.min(1, brightness * 0.85 + wavePhase * 0.15)
+            r = (53 + 110 * gt) | 0
+            g = (55 + 111 * gt) | 0
+            b = (59 + 109 * gt) | 0
           }
           alpha = 0.4 + brightness * 0.6
           if (brightness > 0.7) {
@@ -539,9 +543,10 @@ export default function AsciiShader({ config, svgScale = 1, theme = "dark", svgP
               g = (g + (50 - g) * t) | 0
               b = (b + (160 - b) * t) | 0
             } else {
-              r = (r + (120 - r) * t) | 0
-              g = (g + (200 - g) * t) | 0
-              b = (b + (255 - b) * t) | 0
+              // brighten peaks toward near-white gray
+              r = (r + (214 - r) * t) | 0
+              g = (g + (216 - g) * t) | 0
+              b = (b + (218 - b) * t) | 0
             }
           }
           if (mouseInf > 0.1) {
@@ -550,9 +555,10 @@ export default function AsciiShader({ config, svgScale = 1, theme = "dark", svgP
               g = (g * (1 - mouseInf * 0.3)) | 0
               b = (b + (180 - b) * mouseInf * 0.6) | 0
             } else {
-              r = (r + (180 - r) * mouseInf * 0.4) | 0
-              g = (g + (240 - g) * mouseInf * 0.6) | 0
-              b = (b + (255 - b) * mouseInf) | 0
+              // cursor lifts toward white
+              r = (r + (240 - r) * mouseInf) | 0
+              g = (g + (242 - g) * mouseInf) | 0
+              b = (b + (244 - b) * mouseInf) | 0
             }
           }
         } else if (st === "code") {
@@ -654,7 +660,7 @@ export default function AsciiShader({ config, svgScale = 1, theme = "dark", svgP
         const st = cfg.charSet as RampKey
         const nc = isLight
           ? (st === "blocks" ? "10,40,120" : st === "code" ? "140,0,60" : "60,65,75")
-          : (st === "blocks" ? "40,120,255" : st === "code" ? "255,0,128" : "160,170,190")
+          : (st === "blocks" ? "163,166,168" : st === "code" ? "255,0,128" : "160,170,190")
         for (let s = 0; s < count; s++) {
           const seed = Math.sin(s * 127.1 + timeSlot * 311.7) * 43758.5453
           const r2 = seed - Math.floor(seed)
