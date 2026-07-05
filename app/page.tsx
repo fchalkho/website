@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <>
       <AsciiShader config={DEFAULT_CONFIG} svgScale={2.4} theme="dark" />
-      <div className="pointer-events-none fixed inset-x-0 bottom-8 z-10 flex justify-center">
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-10 flex justify-center pb-[calc(env(safe-area-inset-bottom)+18px)] sm:bottom-8 sm:pb-0">
         <a
           href="https://x.com/felipechalkho"
           target="_blank"
@@ -13,8 +13,8 @@ export default function Home() {
           className="pointer-events-auto text-[#35373B] transition-colors duration-300 ease-out hover:text-white"
         >
           <svg
-            width="20"
-            height="20"
+            width="18"
+            height="18"
             viewBox="0 0 300 271"
             fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
