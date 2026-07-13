@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import PageTransition from "./components/PageTransition";
 
 const dieGrotesk = localFont({
   variable: "--font-die-grotesk",
@@ -11,6 +12,15 @@ const dieGrotesk = localFont({
     { path: "./fonts/DieGrotesk-A-Semibold.otf", weight: "600", style: "normal" },
   ],
 });
+
+// Themed browser chrome (mobile URL/status bar) matching Backgrounds/Primary, so
+// entering another route doesn't flash a differently-colored chrome.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0b" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://chalkho.com"),
@@ -50,7 +60,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${dieGrotesk.variable} h-full antialiased`}>
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <PageTransition>{children}</PageTransition>
+      </body>
     </html>
   );
 }

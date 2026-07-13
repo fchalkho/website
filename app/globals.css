@@ -6,24 +6,46 @@
  * values follow the system OS preference. The ASCII route opts out of these
  * entirely (see app/ascii/layout.tsx).
  */
+/* Design system — grays (Figma "Grays" section, node 37:98). See DESIGN_SYSTEM.md.
+   Light mode = source of truth here; dark values follow prefers-color-scheme. */
 :root {
-  --background: #ffffff;
+  /* Backgrounds */
+  --background: #ffffff;            /* Backgrounds/Primary */
+  --background-light: #fcfcfd;      /* Backgrounds/Light (ASCII surface, light) */
+  --background-secondary: #f7f7f8;  /* Backgrounds/Secondary */
+
+  /* Labels */
   --label-primary: #1d1d1f;
   --label-secondary: #6c6f75;
   --label-tertiary: #a7abae;
+
+  /* Separators */
   --separator-opaque: #e7e8e9;
   --separator-non-opaque: #e7e8e980;
+
+  /* ASCII surface = Backgrounds/Primary (same as the rest of the site), so
+     entering ASCII is a same-color crossfade. Kept in sync with
+     ASCII_BG_LIGHT/DARK in app/lib/ascii.ts (the shader/JS read those). */
+  --ascii-bg: var(--background);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Dark-mode values from the Design System library (Figma node 3:2). */
-    --background: #0a0a0b;
+    /* Backgrounds */
+    --background: #0a0a0b;            /* Backgrounds/Primary */
+    --background-secondary: #151619;  /* Backgrounds/Secondary */
+    --background-dark: #020203;        /* Backgrounds/Dark (ASCII surface, dark) */
+
+    /* Labels */
     --label-primary: #f5f5f7;
     --label-secondary: #a3a6a8;
     --label-tertiary: #686b6e;
+
+    /* Separators */
     --separator-opaque: #35373b;
     --separator-non-opaque: #35373b80;
+
+    /* --ascii-bg follows --background (Backgrounds/Primary) automatically. */
   }
 }
 
@@ -32,6 +54,13 @@
   --font-sans: var(--font-die-grotesk);
 }
 
+/* Set the background on <html> too (not just <body>) so mobile overscroll /
+   rubber-banding never reveals a white flash behind the page. */
+html {
+  background: var(--background);
+}
+
 body {
+  background: var(--background);
   font-family: var(--font-die-grotesk), -apple-system, BlinkMacSystemFont, sans-serif;
 }

@@ -2,8 +2,11 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+import { usePageTransition } from "./PageTransition";
+import { asciiSurface } from "../lib/ascii";
 
 gsap.registerPlugin(ScrambleTextPlugin);
 
@@ -19,6 +22,14 @@ const DURATION = 0.75; // 750ms
 // reliably to the underlying <a>).
 export default function AsciiRow({ date }: { date: string }) {
   const textRef = useRef<HTMLSpanElement>(null);
+  const { navigate } = usePageTransition();
+  const router = useRouter();
+
+  // Warm the route so the transition never races a cold compile (dev) or a
+  // chunk load (prod).
+  useEffect(() => {
+    router.prefetch("/ascii");
+  }, [router]);
 
   useEffect(() => {
     const el = textRef.current;
@@ -50,6 +61,10 @@ export default function AsciiRow({ date }: { date: string }) {
   return (
     <Link
       href="/ascii"
+      onClick={(e) => {
+        e.preventDefault();
+        navigate("/ascii", { backdrop: asciiSurface(), waitForCanvas: true });
+      }}
       className="flex w-full items-end justify-between pt-4 pb-2 shadow-[0_1px_0_0_var(--separator-non-opaque)]"
     >
       <span className="text-[15px] leading-[24px] tracking-[0.12px] text-[var(--label-primary)]">

@@ -1,4 +1,5 @@
 import XIcon from "./components/XIcon";
+import FrambuesaRow from "./components/FrambuesaRow";
 import AsciiRow from "./components/AsciiRow";
 
 export default function Home() {
@@ -43,17 +44,7 @@ export default function Home() {
             Artwork
           </h2>
         </div>
-        <div className="group flex w-full items-end justify-between pt-4 pb-2 shadow-[0_1px_0_0_var(--separator-non-opaque)]">
-          <p className="text-[15px] leading-[24px] tracking-[0.12px]">
-            <span className="text-[var(--label-primary)]">Frambuesa</span>{" "}
-            <span className="text-[var(--label-tertiary)] opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:transition-none">
-              work in progress
-            </span>
-          </p>
-          <span className="text-[11px] leading-[16px] tracking-[0.16px] text-[var(--label-tertiary)]">
-            07/12/26
-          </span>
-        </div>
+        <FrambuesaRow date="07/12/26" />
         <AsciiRow date="07/05/26" />
       </section>
     </main>
