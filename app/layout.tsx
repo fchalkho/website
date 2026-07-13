@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const dieGrotesk = localFont({
+  variable: "--font-die-grotesk",
+  display: "swap",
+  src: [
+    { path: "./fonts/DieGrotesk-A-Regular.otf", weight: "400", style: "normal" },
+    { path: "./fonts/DieGrotesk-A-Medium.otf", weight: "500", style: "normal" },
+    { path: "./fonts/DieGrotesk-A-Semibold.otf", weight: "600", style: "normal" },
+  ],
 });
 
 export const metadata: Metadata = {
@@ -49,11 +49,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`${dieGrotesk.variable} h-full antialiased`}>
+      <body className="min-h-full">{children}</body>
     </html>
   );
 }
