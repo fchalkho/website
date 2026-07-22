@@ -10,6 +10,9 @@ const dieGrotesk = localFont({
     { path: "./fonts/DieGrotesk-A-Regular.otf", weight: "400", style: "normal" },
     { path: "./fonts/DieGrotesk-A-Medium.otf", weight: "500", style: "normal" },
     { path: "./fonts/DieGrotesk-A-Semibold.otf", weight: "600", style: "normal" },
+    // Variable italic (all weights in one file) — used for Frambuesa's pull
+    // quotes and diagram captions. `font-style: italic` selects it.
+    { path: "./fonts/DieGroteskVF-Italic.ttf", weight: "300 700", style: "italic" },
   ],
 });
 
